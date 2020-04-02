@@ -140,6 +140,9 @@ void PlayerEditorDisplay()
             case 9:
                 PlayerSetMaxMoney();
                 break;
+            case 10:
+                PlayerSetCharacterLevel();
+                break;
         }
     }
 }
@@ -285,7 +288,7 @@ void PersonaAddAllToCompendium()
 
 void EvolvePersona()
 {
-    int selection = SEL_GENERIC_NOT_HELP( -1, UnitSelect3 );
+    int selection = SEL_GENERIC_NOT_HELP( -1, UnitSelect2 );
 
     switch ( selection )
     {
@@ -311,6 +314,9 @@ void EvolvePersona()
             break;
         case 6:
             PERSONA_EVOLUTION( 8 );
+            break;
+        case 7:
+            PERSONA_EVOLUTION( 9 );
             break;
     }
 }
@@ -1649,6 +1655,19 @@ void PlayerSetMaxMoney()
     CALL_GLOBAL_MONEY_PANEL();
     CHANGE_GLOBAL_MONEY( 9999999, 0 );
     DEL_GLOBAL_MONEY_PANEL();
+}
+
+void PlayerSetCharacterLevel // currently non-functional
+{
+  int unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
+  if ( unitId == -1 ) // Cancel
+      return;
+
+  int level = SelectNumber( 2 );
+  if ( level == -1 ) // Cancel
+      return;
+
+  SET_HUMAN_LV( unitId, level );
 }
 
 // Calendar Editor
